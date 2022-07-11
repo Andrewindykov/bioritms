@@ -3,7 +3,7 @@ from termcolor import cprint
 
 
 def colored(d, s, h=0, m=0, sec=0):
-    ''' раскрашиваем вывод за 10%, 2% до и 1% после события и считаем это в днях на входе возраст'''
+    ''' раскрашиваем вывод за 3%, 1% до и 1% после события и считаем это в днях на входе возраст'''
 
     if s == 'd':
         nice = 1000
@@ -28,12 +28,12 @@ def colored(d, s, h=0, m=0, sec=0):
     if i % nice <= nice // 1000:
         col = 'green'
         ou = f'{i:,}{s}'
-    elif int(nice * 0.98) <= i % nice < nice:
+    elif int(nice * 0.99) <= i % nice < nice:
         col = 'blue'
         ddd = round((nice - i % nice)/ind, 1)
 
         ou = f'{i:,} (через {ddd:,} д)'
-    elif int(nice * 0.9) <= i % nice <= int(nice * 0.98):
+    elif int(nice * 0.97) <= i % nice <= int(nice * 0.99):
         col = 'yellow'
         ddd = round((nice - i % nice)/ind, 1)
         ou = f'{i:,} (через {ddd:,} д)'
