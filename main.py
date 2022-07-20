@@ -1,7 +1,6 @@
 from datetime import datetime
 from termcolor import cprint
-
-
+import time
 def colored(d, s, h=0, m=0, sec=0):
     ''' раскрашиваем вывод за 10%, 1% до и 1% после события и считаем это в днях на входе возраст'''
 
@@ -9,6 +8,7 @@ def colored(d, s, h=0, m=0, sec=0):
         nice = 1000
         i = d
         ind = 1
+
     elif s == 'h':
         nice = 10000
         i = d * 24 + h
@@ -31,18 +31,18 @@ def colored(d, s, h=0, m=0, sec=0):
 
     elif int(nice * 0.99) <= i % nice < nice:
         col = 'blue'
-        ddd = round((nice - i % nice)/ind, 1)
+        ddd = round((nice - i % nice) / ind, 1)
 
-        ou = f'{i:,} (через {ddd:} д)'
+        ou = f'{i:,}{s} (через {ddd:} д)'
     elif int(nice * 0.9) <= i % nice <= int(nice * 0.99):
         col = 'yellow'
-        ddd = round((nice - i % nice)/ind, 1)
-        ou = f'{i:,} (через {ddd:} д)'
+        ddd = round((nice - i % nice) / ind, 1)
+        ou = f'{i:,}{s} (через {ddd:} д)'
 
     elif 0 < i % nice <= nice // 100:
         col = 'red'
-        ddd = round((i % nice)/ind, 1)
-        ou = f'{i:,} (прошло {ddd:} д)'
+        ddd = round((i % nice) / ind, 1)
+        ou = f'{i:,}{s} (прошло {ddd:} д)'
 
     else:
         col = 'white'
@@ -53,40 +53,40 @@ def colored(d, s, h=0, m=0, sec=0):
 
 def pif(date):
     ''' вычисляет числа пифагора по строке рождения'''
-    sl={'1':0, '2':0, '3':0, '4':0, '5':0, '6':0, '7':0,'8':0, '9':0}
-    a=0
+    sl = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0}
+    a = 0
     for i in date:
         if i in '123456789':
-            a+=int(i)
-       # print(i, end='-')
-        if i in sl:
-            sl[i]+=1
-    if a in (11,22,33):
-        cprint(f' сумма={a}','yellow' )
+            a += int(i)
+            sl[i] += 1
+    if a in (11, 22, 33):
+        cprint(f' сумма={a}', 'yellow')
     else:
         print()
-    x=a%10
-    if x!=0:
-        sl[str(x)]+=1
-    if a>=10:
-        x=a//10
+    x = a % 10
+    if x != 0:
+        sl[str(x)] += 1
+    if a >= 10:
+        x = a // 10
         if x != 0:
-            sl[str(x)]+=1
-    #print(sl)
+            sl[str(x)] += 1
+    # print(sl)
     return sl
 
+
 def pifprint(sl):
-    digits=''
- #   print(sl)
-    k=0
+    digits = ''
+    #   print(sl)
+    k = 0
     for i in '147258369':
-        #print(item, end='+')
-        digits+=f'{i*sl[i]:4} '
-        k+=1
+        # print(item, end='+')
+        digits += f'{i * sl[i]:4} '
+        k += 1
         if str(k) in '36':
-            digits+='\n'
-  #      res
+            digits += '\n'
+    #      res
     return digits
+
 
 t = False
 # Пашка сын 01.12.2000
@@ -99,7 +99,7 @@ for line in lines:
     datte2 = datetime.strptime(datte, "%d.%m.%Y")
 
     daays = (datetime.today() - datte2).days
-  #  print((' 1:', daays, daays % 1000) if t else '', end='')
+    #  print((' 1:', daays, daays % 1000) if t else '', end='')
 
     out, color = colored(daays, 'd')
     cprint(f'{line}  {out}', color, end='')
@@ -113,4 +113,11 @@ for line in lines:
     out, color = colored(daays, 's', h=2, m=4, sec=25)
     cprint(f'  ={out}', color, end='')
 
+    ye=int(daays)/365
+    ye7=ye/7
+    print(f' {ye:.3} лет  {ye7:.3} семилетних циклов', end='')
+    if ye7 - int(ye7) < 0.05:
+        cprint(f' галс', 'red', end='')
+
     print(pifprint(pif(datte)))
+time.sleep(5)
