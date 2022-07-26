@@ -10,17 +10,20 @@ def colored(d, s, h=0, m=0, sec=0):
         ind = 1
 
     elif s == 'h':
-        nice = 10000
+        nice = 10_000
         i = d * 24 + h
         ind = 24
+
     elif s == 'm':
-        nice = 1000000
+        nice = 1_000_000
         i = (d * 24 + h) * 60 + m
         ind = 24 * 60
+
     elif s == 's':
-        nice = 100000000
+        nice = 100_000_000
         i = ((d * 24 + h) * 60 + m) * 60 + sec
         ind = 24 * 60 * 60
+
     else:
         i = 0
         nice = 1
@@ -31,12 +34,12 @@ def colored(d, s, h=0, m=0, sec=0):
 
     elif int(nice * 0.99) <= i % nice < nice:
         col = 'blue'
-        ddd = round((nice - i % nice) / ind, 1)
+        ddd = round((nice - i % nice) / ind, 2)
 
         ou = f'{i:,}{s} (через {ddd:} д)'
     elif int(nice * 0.9) <= i % nice <= int(nice * 0.99):
         col = 'yellow'
-        ddd = round((nice - i % nice) / ind, 1)
+        ddd = round((nice - i % nice) / ind, 2)
         ou = f'{i:,}{s} (через {ddd:} д)'
 
     elif 0 < i % nice <= nice // 100:
@@ -93,10 +96,12 @@ t = False
 with open('Днюхи.txt') as f:
     lines = f.readlines()
 for line in lines:
+    #print(line)
     line = line.strip()
-    datte = line.split()[-1]
-
+    datte = line.split(' ')[-1]
+    # print(datte,type(datte))
     datte2 = datetime.strptime(datte, "%d.%m.%Y")
+    # print(datte2, type(datte2), datetime.today())
 
     daays = (datetime.today() - datte2).days
     #  print((' 1:', daays, daays % 1000) if t else '', end='')
@@ -121,3 +126,5 @@ for line in lines:
 
     print(pifprint(pif(datte)))
 time.sleep(5)
+
+# https://goroskop365.ru/data-rozhdeniya/21-fevralya-1994-god/
