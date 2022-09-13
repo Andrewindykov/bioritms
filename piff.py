@@ -100,16 +100,16 @@ with open('Днюхи.txt') as f:
     lines = f.readlines()
 k = True
 for line in lines:
-    # print(line)
+    #print(line)
     line = line.strip()
     datte = line.split(' ')[-1]
-    # print(datte,type(datte))
+    #print(datte,type(datte))
     datte2 = datetime.strptime(datte, "%d.%m.%Y")
 
-    # print(datte2, type(datte2), datetime.today())
+    #print(datte2, type(datte2), datetime.today())
 
     daays = (datetime.today() - datte2).days
-    #  print((' 1:', daays, daays % 1000) if t else '', end='')
+    print((' 1:', daays, daays % 1000) if t else '', end='')
 
     if k:
         k = False
@@ -119,20 +119,20 @@ for line in lines:
     out, color = colored(daays, 'd')
     cprint(f'{line}  {out} ', color, end='')
 
-    # out, color = colored(daays, 'h', h=5)
-    # cprint(f'  ={out}', color, end='')
-    #
-    # out, color = colored(daays, 'm', h=2, m=4)
-    # cprint(f'  ={out}', color, end='')
-    #
-    # out, color = colored(daays, 's', h=2, m=4, sec=25)
-    # cprint(f'  ={out}', color, end='')
+    out, color = colored(daays, 'h', h=5)
+    cprint(f'  ={out}', color, end='')
 
-    # ye = int(daays) / 365
-    # ye7 = ye / 7
-    # print(f' {ye:.3} y  {ye7:.3} coils')
-    # if ye7 - int(ye7) < 0.05:
-    #     cprint(f' gals', 'red', end=' ')
+    out, color = colored(daays, 'm', h=2, m=4)
+    cprint(f'  ={out}', color, end='')
+
+    out, color = colored(daays, 's', h=2, m=4, sec=25)
+    cprint(f'  ={out}', color, end='')
+
+    ye = int(daays) / 365
+    ye7 = ye / 7
+    print(f' {ye:.3} y  {ye7:.3} coils')
+    if ye7 - int(ye7) < 0.05:
+        cprint(f' gals', 'red', end=' ')
     sov1=23.6884
     sov2=28.426125
     sov3=33.163812
@@ -157,9 +157,9 @@ for line in lines:
     a7 = xx % sov7
     b7 = abs(round(100 - a7 / sov7 * 200))
     overall=round((b1+b2+b3+b4+b5+b6+b7)/7)
-    #print(f'{xx} muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ', end=' ')  # совместимость
-    print(f'  muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ',
-          end=' ')  # совместимость
+    print(f'{xx} muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ', end=' ')  # совместимость
+
+    #print(f'  muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ', end=' ')  # совместимость
 
     if overall<40:
         color='grey'
@@ -175,13 +175,12 @@ for line in lines:
         color = 'green'
 
 
+    cprint(f'overall:{overall}', color, end='     ')
+    #cprint(f'overall:{overall}', color)
+    #print()
 
+    print(pifprint(pif(datte)), )
 
-   # cprint(f'overall:{overall}', color, end='     ')
-    cprint(f'overall:{overall}', color)
-    print()
-
-   # print(pifprint(pif(datte)), )
 time.sleep(7)
 
 # https://goroskop365.ru/data-rozhdeniya/21-fevralya-1994-god/
