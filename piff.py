@@ -180,6 +180,7 @@ for line in lines:
     #print()
 
     print(pifprint(pif(datte)), )
+    print()
 
 time.sleep(7)
 
