@@ -1,5 +1,6 @@
+import random
 from datetime import datetime
-from termcolor import cprint
+from termcolor import colored, cprint
 import time
 
 
@@ -50,52 +51,13 @@ def colored(d, s, h=0, m=0, sec=0):
         ou = f'{i:,}{s} ({ddd:} d ago)'
 
     else:
-        col = 'white'
+        col = random.choice(['white', 'white', 'white', 'white', 'green'])
         ou = f'{i:,}{s}'
 
     return ou, col
 
-
-def pif(date):
-    ''' вычисляет числа пифагора по строке рождения'''
-    sl = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0}
-    a = 0
-    for i in date:
-        if i in '123456789':
-            a += int(i)
-            sl[i] += 1
-    if a in (11, 22, 33):
-        cprint(f' sum={a}', 'yellow')
-    else:
-        print()
-    x = a % 10
-    if x != 0:
-        sl[str(x)] += 1
-    if a >= 10:
-        x = a // 10
-        if x != 0:
-            sl[str(x)] += 1
-    # print(sl)
-    return sl
-
-
-def pifprint(sl):
-
-    digits = ''
-    #   print(sl)
-    k = 0
-    for i in '147258369':
-        # print(item, end='+')
-        digits += f'{i * sl[i]:4} '
-        k += 1
-        if str(k) in '36':
-            digits += '\n'
-    #      res
-    return digits
-
-
 t = False
-# Пашка сын 01.12.2000
+
 with open('Днюхи.txt') as f:
     lines = f.readlines()
 k = True
@@ -117,6 +79,7 @@ for line in lines:
         masterdaays = daays
 
     out, color = colored(daays, 'd')
+    print(f"--------------------{color}")
     cprint(f'{line}  {out} ', color, end='')
 
     # out, color = colored(daays, 'h', h=5)
