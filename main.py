@@ -212,7 +212,7 @@ for line in lines:
     print(f'{color}overall:{overall}{nocolor}', end='    \n')
     # print(f'\u001b[32moverall:{overall} {nocolor}')
     print()
-    if line[0] == '+' or (overall>70 and overall<100):
+    if line[0] == '+' or (overall>70 and overall<100) or  220<b1+b2+b3<300:
         gisto([b1 // 10, b2 // 10, b3 // 10, b4 // 10, b5 // 10, b6 // 10, b7 // 10])
     print()
 # print(pifprint(pif(datte)), )
