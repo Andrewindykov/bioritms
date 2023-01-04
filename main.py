@@ -2,14 +2,19 @@ import random
 import time
 from datetime import datetime
 
-grey='grey'
-white='white'
-magenta='magenta'
-yellow='yellow'
-blue='blue'
-green='green'
-red='red'
-def c(colo:str):
+grey = 'grey'
+white = 'white'
+magenta = 'magenta'
+yellow = 'yellow'
+blue = 'blue'
+green = 'green'
+red = 'red'
+
+rred = '\u001b[31m'
+nocolor = '\u001b[0m'
+
+
+def c(colo: str):
     def c_deco(func):
         def co(*args, **kwargs):
             if colo == 'grey':
@@ -30,11 +35,39 @@ def c(colo:str):
                 colors = '\u001b[37m'  # white'
 
             print(colors, end='')
-            result = func(*args,**kwargs)
-            print('\u001b[0m',end='')
+            result = func(*args, **kwargs)
+            print('\u001b[0m', end='')
             return result
+
         return co
+
     return c_deco
+
+
+def gisto(n):
+    ymax = max(n)
+
+    for y in range(1, ymax + 1):
+        for nk in n:
+            if nk < 4:
+                color = '\u001b[30;1m'  # grey'
+            elif nk < 5:
+                color = '\u001b[37m'  # white'
+            elif nk < 6:
+                color = '\u001b[35m'  # 'magenta'
+            elif nk < 7:
+                color = '\u001b[33m'  # 'yellow'
+            elif nk < 8:
+                color = '\u001b[34m'  # 'blue'
+            else:
+                color = '\u001b[32m'  # green
+
+            if nk >= ymax - y + 1:
+                print(color, end='*    ')
+                print(nocolor, end='')
+            else:
+                print(end='     ')
+        print(' ')
 
 
 def colored(d, s, h=0, m=0, sec=0):
@@ -89,15 +122,14 @@ def colored(d, s, h=0, m=0, sec=0):
 
     return ou, col
 
-rred = '\u001b[31m'
-nocolor = '\u001b[0m'
+
 t = False
 
 with open('Днюхи.txt') as f:
     lines = f.readlines()
-#print('\u001b[31m')  # 'red'
-#print('red rat')
-#print('\u001b[0m')
+# print('\u001b[31m')  # 'red'
+# print('red rat')
+# print('\u001b[0m')
 k = True
 for line in lines:
     # print(line)
@@ -165,22 +197,24 @@ for line in lines:
           end=' ')  # совместимость
 
     if overall < 40:
-        color = '\u001b[30;1m'   #grey'
+        color = '\u001b[30;1m'  # grey'
     elif overall < 50:
-        color = '\u001b[37m' #white'
+        color = '\u001b[37m'  # white'
     elif overall < 60:
-        color = '\u001b[35m' #'magenta'
+        color = '\u001b[35m'  # 'magenta'
     elif overall < 70:
-        color =  	'\u001b[33m'       #'yellow'
+        color = '\u001b[33m'  # 'yellow'
     elif overall < 80:
-        color = '\u001b[34m'     #'blue'
+        color = '\u001b[34m'  # 'blue'
     else:
-        color = '\u001b[32m'   # green
+        color = '\u001b[32m'  # green
 
     print(f'{color}overall:{overall}{nocolor}', end='    \n')
-    #print(f'\u001b[32moverall:{overall} {nocolor}')
+    # print(f'\u001b[32moverall:{overall} {nocolor}')
     print()
-
+    if line[0] == '+' or (overall>70 and overall<100):
+        gisto([b1 // 10, b2 // 10, b3 // 10, b4 // 10, b5 // 10, b6 // 10, b7 // 10])
+    print()
 # print(pifprint(pif(datte)), )
 time.sleep(7)
 
