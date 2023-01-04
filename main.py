@@ -1,7 +1,40 @@
 import random
-from datetime import datetime
-from termcolor import colored, cprint
 import time
+from datetime import datetime
+
+grey='grey'
+white='white'
+magenta='magenta'
+yellow='yellow'
+blue='blue'
+green='green'
+red='red'
+def c(colo:str):
+    def c_deco(func):
+        def co(*args, **kwargs):
+            if colo == 'grey':
+                colors = '\u001b[30;1m'  # grey'
+            elif colo == 'white':
+                colors = '\u001b[37m'  # white'
+            elif colo == 'magenta':
+                colors = '\u001b[35m'  # 'magenta'
+            elif colo == 'yellow':
+                colors = '\u001b[33m'  # 'yellow'
+            elif colo == 'blue':
+                colors = '\u001b[34m'  # 'blue'
+            elif colo == 'green':
+                colors = '\u001b[34m'  # 'green'
+            elif colo == 'red':
+                colors = '\u001b[31m'  # 'red'
+            else:
+                colors = '\u001b[37m'  # white'
+
+            print(colors, end='')
+            result = func(*args,**kwargs)
+            print('\u001b[0m',end='')
+            return result
+        return co
+    return c_deco
 
 
 def colored(d, s, h=0, m=0, sec=0):
@@ -32,34 +65,39 @@ def colored(d, s, h=0, m=0, sec=0):
         nice = 1
 
     if i % nice <= nice // 1000:
-        col = 'green'
+        col = '\u001b[32m'
         ou = f'{i:,}{s}'
 
     elif int(nice * 0.99) <= i % nice < nice:
-        col = 'blue'
+        col = '\u001b[34m'
         ddd = round((nice - i % nice) / ind, 2)
 
         ou = f'{i:,}{s} (after {ddd:} d)'
     elif int(nice * 0.9) <= i % nice <= int(nice * 0.99):
-        col = 'yellow'
+        col = '\u001b[33m'
         ddd = round((nice - i % nice) / ind, 2)
         ou = f'{i:,}{s} (in {ddd:} d)'
 
     elif 0 < i % nice <= nice // 100:
-        col = 'red'
+        col = '\u001b[31m'
         ddd = round((i % nice) / ind, 1)
         ou = f'{i:,}{s} ({ddd:} d ago)'
 
     else:
-        col = random.choice(['white', 'white', 'white', 'white', 'green'])
+        col = random.choice(['\u001b[37m', '\u001b[37m', '\u001b[37m', '\u001b[37m'])
         ou = f'{i:,}{s}'
 
     return ou, col
 
+rred = '\u001b[31m'
+nocolor = '\u001b[0m'
 t = False
 
 with open('Днюхи.txt') as f:
     lines = f.readlines()
+#print('\u001b[31m')  # 'red'
+#print('red rat')
+#print('\u001b[0m')
 k = True
 for line in lines:
     # print(line)
@@ -79,39 +117,41 @@ for line in lines:
         masterdaays = daays
 
     out, color = colored(daays, 'd')
-    print(f"--------------------{color}")
-    cprint(f'{line}  {out} ', color, end='')
+    # print(f"--------------------{color}")
+    print(f'{line}  {color}{out}{nocolor} ', end='')
 
-    # out, color = colored(daays, 'h', h=5)
-    # cprint(f'  ={out}', color, end='')
-    #
-    # out, color = colored(daays, 'm', h=2, m=4)
-    # cprint(f'  ={out}', color, end='')
-    #
-    # out, color = colored(daays, 's', h=2, m=4, sec=25)
-    # cprint(f'  ={out}', color, end='')
+    out, color = colored(daays, 'h', h=5)
+    print(f' {color} ={out}{nocolor}', end='')
 
-    # ye = int(daays) / 365
-    # ye7 = ye / 7
-    # print(f' {ye:.3} y  {ye7:.3} coils')
-    # if ye7 - int(ye7) < 0.05:
-    #     cprint(f' gals', 'red', end=' ')
-    sov1=23.6884
-    sov2=28.426125
-    sov3=33.163812
-    sov4=37.901499
-    sov5=42.6392
-    sov6=47.3769
-    sov7=52.1146
-    xx=abs(daays - masterdaays)
-    a1 = xx%sov1
-    b1=abs(round(100-a1/sov1*200))
-    a2 = xx%sov2
-    b2=abs(round(100-a2/sov2*200))
-    a3 = xx%sov3
-    b3=abs(round(100-a3/sov3*200))
-    a4 = xx%sov4
-    b4=abs(round(100-a4/sov4*200))
+    out, color = colored(daays, 'm', h=2, m=4)
+    print(f' {color} ={out}{nocolor}', end='')
+
+    out, color = colored(daays, 's', h=2, m=4, sec=25)
+    print(f' {color} ={out}{nocolor}', end='')
+
+    ye = int(daays) / 365
+    ye7 = ye / 7
+    print(f' {ye:.3} y  {ye7:.3} coils', end=' ')
+
+    if ye7 - int(ye7) < 0.05:
+        print(f' {rred}gals{nocolor}', end=' ')
+    print()
+    sov1 = 23.6884
+    sov2 = 28.426125
+    sov3 = 33.163812
+    sov4 = 37.901499
+    sov5 = 42.6392
+    sov6 = 47.3769
+    sov7 = 52.1146
+    xx = abs(daays - masterdaays)
+    a1 = xx % sov1
+    b1 = abs(round(100 - a1 / sov1 * 200))
+    a2 = xx % sov2
+    b2 = abs(round(100 - a2 / sov2 * 200))
+    a3 = xx % sov3
+    b3 = abs(round(100 - a3 / sov3 * 200))
+    a4 = xx % sov4
+    b4 = abs(round(100 - a4 / sov4 * 200))
 
     a5 = xx % sov5
     b5 = abs(round(100 - a5 / sov5 * 200))
@@ -119,32 +159,29 @@ for line in lines:
     b6 = abs(round(100 - a6 / sov6 * 200))
     a7 = xx % sov7
     b7 = abs(round(100 - a7 / sov7 * 200))
-    overall=round((b1+b2+b3+b4+b5+b6+b7)/7)
-    #print(f'{xx} muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ', end=' ')  # совместимость
+    overall = round((b1 + b2 + b3 + b4 + b5 + b6 + b7) / 7)
+    # print(f'{xx} muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ', end=' ')  # совместимость
     print(f'  muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ',
           end=' ')  # совместимость
 
-    if overall<40:
-        color='grey'
-    elif overall<50:
-        color = 'white'
-    elif overall<60:
-        color = 'magenta'
+    if overall < 40:
+        color = '\u001b[30;1m'   #grey'
+    elif overall < 50:
+        color = '\u001b[37m' #white'
+    elif overall < 60:
+        color = '\u001b[35m' #'magenta'
     elif overall < 70:
-        color = 'yellow'
+        color =  	'\u001b[33m'       #'yellow'
     elif overall < 80:
-        color = 'blue'
+        color = '\u001b[34m'     #'blue'
     else:
-        color = 'green'
+        color = '\u001b[32m'   # green
 
-
-
-
-   # cprint(f'overall:{overall}', color, end='     ')
-    cprint(f'overall:{overall}', color)
+    print(f'{color}overall:{overall}{nocolor}', end='    \n')
+    #print(f'\u001b[32moverall:{overall} {nocolor}')
     print()
 
-   # print(pifprint(pif(datte)), )
+# print(pifprint(pif(datte)), )
 time.sleep(7)
 
 # https://goroskop365.ru/data-rozhdeniya/21-fevralya-1994-god/
