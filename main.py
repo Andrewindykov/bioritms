@@ -168,32 +168,30 @@ for line in lines:
     if ye7 - int(ye7) < 0.05:
         print(f' {rred}gals{nocolor}', end=' ')
     print()
-    sov1 = 23.6884
-    sov2 = 28.426125
-    sov3 = 33.163812
-    sov4 = 37.901499
-    sov5 = 42.6392
-    sov6 = 47.3769
-    sov7 = 52.1146
+    sov_list = (23.6884, 28.426125, 33.163812, 37.901499, 42.6392, 47.3769, 52.1146)
     xx = abs(daays - masterdaays)
-    a1 = xx % sov1
-    b1 = abs(round(100 - a1 / sov1 * 200))
-    a2 = xx % sov2
-    b2 = abs(round(100 - a2 / sov2 * 200))
-    a3 = xx % sov3
-    b3 = abs(round(100 - a3 / sov3 * 200))
-    a4 = xx % sov4
-    b4 = abs(round(100 - a4 / sov4 * 200))
-
-    a5 = xx % sov5
-    b5 = abs(round(100 - a5 / sov5 * 200))
-    a6 = xx % sov6
-    b6 = abs(round(100 - a6 / sov6 * 200))
-    a7 = xx % sov7
-    b7 = abs(round(100 - a7 / sov7 * 200))
-    overall = round((b1 + b2 + b3 + b4 + b5 + b6 + b7) / 7)
+    a = [xx % i for i in sov_list]
+    b = [abs(round(100 - (xx % i) / i * 200)) for i in sov_list]
+    print(a, b, sep="\n")
+    # a1 = xx % sov1
+    # b1 = abs(round(100 - a1 / sov1 * 200))
+    # a2 = xx % sov2
+    # b2 = abs(round(100 - a2 / sov2 * 200))
+    # a3 = xx % sov3
+    # b3 = abs(round(100 - a3 / sov3 * 200))
+    # a4 = xx % sov4
+    # b4 = abs(round(100 - a4 / sov4 * 200))
+    #
+    # a5 = xx % sov5
+    # b5 = abs(round(100 - a5 / sov5 * 200))
+    # a6 = xx % sov6
+    # b6 = abs(round(100 - a6 / sov6 * 200))
+    # a7 = xx % sov7
+    # b7 = abs(round(100 - a7 / sov7 * 200))
+    # overall = round((b1 + b2 + b3 + b4 + b5 + b6 + b7) / 7)
+    overall = round(sum(b) / 7)
     # print(f'{xx} muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ', end=' ')  # совместимость
-    print(f'  muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ',
+    print(f'  muladh={b[0]} emo={b[1]} intell={b[2]} heart={b[3]} creat={b[4]} intuit={b[5]} sahasrar={b[6]} ',
           end=' ')  # совместимость
 
     if overall < 40:
@@ -212,11 +210,13 @@ for line in lines:
     print(f'{color}overall:{overall}{nocolor}', end='    \n')
     # print(f'\u001b[32moverall:{overall} {nocolor}')
     print()
-    if line[0] == '+' or (overall>70 and overall<100) or  220<b1+b2+b3<300:
-        gisto([b1 // 10, b2 // 10, b3 // 10, b4 // 10, b5 // 10, b6 // 10, b7 // 10])
-    print()
-# print(pifprint(pif(datte)), )
-time.sleep(7)
+    if line[0] == '+' or (overall > 70 and overall < 100) or 220 < b[0] + b[1] + b[2] < 300:
+        # gisto([b1 // 10, b2 // 10, b3 // 10, b4 // 10, b5 // 10, b6 // 10, b7 // 10])
+        gisto(list(map(lambda  x: x//10, b)))
 
-# https://goroskop365.ru/data-rozhdeniya/21-fevralya-1994-god/
-# https://in-contri.ru/
+    # print()
+    # print(pifprint(pif(datte)), )
+    # time.sleep(7)
+
+    # https://goroskop365.ru/data-rozhdeniya/21-fevralya-1994-god/
+    # https://in-contri.ru/
