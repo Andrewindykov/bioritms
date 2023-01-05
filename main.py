@@ -216,7 +216,8 @@ for line in lines:
         gisto([b1 // 10, b2 // 10, b3 // 10, b4 // 10, b5 // 10, b6 // 10, b7 // 10])
     print()
 # print(pifprint(pif(datte)), )
-time.sleep(7)
+input()
+time.sleep(50)
 
 # https://goroskop365.ru/data-rozhdeniya/21-fevralya-1994-god/
 # https://in-contri.ru/
