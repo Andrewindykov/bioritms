@@ -48,7 +48,9 @@ def gisto(n):
     ymax = max(n)
 
     for y in range(1, ymax + 1):
+        print('                   ', end='')
         for nk in n:
+
             if nk < 4:
                 color = '\u001b[30;1m'  # grey'
             elif nk < 5:
@@ -63,10 +65,10 @@ def gisto(n):
                 color = '\u001b[32m'  # green
 
             if nk >= ymax - y + 1:
-                print(color, end='*    ')
+                print(color, end='*       ')
                 print(nocolor, end='')
             else:
-                print(end='     ')
+                print(end='        ')
         print(' ')
 
 
@@ -172,7 +174,7 @@ for line in lines:
     xx = abs(daays - masterdaays)
     a = [xx % i for i in sov_list]
     b = [abs(round(100 - (xx % i) / i * 200)) for i in sov_list]
-    print(a, b, sep="\n")
+    #print(a, b, sep="\n")
     # a1 = xx % sov1
     # b1 = abs(round(100 - a1 / sov1 * 200))
     # a2 = xx % sov2
@@ -191,8 +193,7 @@ for line in lines:
     # overall = round((b1 + b2 + b3 + b4 + b5 + b6 + b7) / 7)
     overall = round(sum(b) / 7)
     # print(f'{xx} muladh={b1} emo={b2} intell={b3} heart={b4} creat={b5} intuit={b6} sahasrar={b7} ', end=' ')  # совместимость
-    print(f'  muladh={b[0]} emo={b[1]} intell={b[2]} heart={b[3]} creat={b[4]} intuit={b[5]} sahasrar={b[6]} ',
-          end=' ')  # совместимость
+
 
     if overall < 40:
         color = '\u001b[30;1m'  # grey'
@@ -207,7 +208,10 @@ for line in lines:
     else:
         color = '\u001b[32m'  # green
 
-    print(f'{color}overall:{overall}{nocolor}', end='    \n')
+    print(f'{color}overall:{overall}{nocolor}', end='   ')
+
+    print(f'  telo={b[0]} emo={b[1]} intell={b[2]} heart={b[3]} creat={b[4]} intuit={b[5]} sahasrar={b[6]} ',
+          end='  \n')  # совместимость
     # print(f'\u001b[32moverall:{overall} {nocolor}')
     print()
     if line[0] == '+' or (overall > 70 and overall < 100) or 220 < b[0] + b[1] + b[2] < 300:
